@@ -13,17 +13,28 @@ BONUS BONUS
 if input is "random", should return any color available in the hex library. And then change the background to that also.
 */
 
-//get constants for the rainbow colors
+//constants for the rainbow colors
+// const red = "#ff0000";
+// const orange = "#ffa500";
+// const yellow = "#ffff00";
+// const green = "#008000";
+// const blue = "#0000ff";
+// const indigo = "#4b0082";
+// const violet = "#ee82ee";
 
 const noBow = "That is not a color of the rainbow."
 const noColor = "You forgot to enter a color. Do you want to exit?"
 const defaultBack = document.body.style.backgroundImage = "url('https://m.media-amazon.com/images/I/41LRRAGib8L.jpg')";
-const roygbiv = [{name: "red", value: "#ff0000"}, {name: "orange", value: "#ffa500"}, 
-                 {name: "yellow", value: "#ffff00"}, {name: "green", value: "#008000"}, 
-                 {name: "blue", value: "#0000ff"}, {name: "indigo", value: "#4b0082"}, 
-                 {name: "violet", value: "#ee82ee"}]; 
+const roygbiv = {
+    red: "#ff0000", 
+    orange:"#ffa500", 
+    yellow:"#ffff00", 
+    green:"#008000", 
+    blue:"#0000ff", 
+    indigo:"#4b0082", 
+    violet:"#ee82ee"}; 
 
-//obtain a prompt for the color input from user
+//prompt for the color input from user
 
 const inputColor = getUserInput();
 
@@ -46,7 +57,7 @@ function getUserInput() {
     }
 }
 
-
+// What to do if press cancel or provide no input
 function promptAgain(question) {
     const toCancel = confirm(question)
       if (toCancel) {
@@ -56,9 +67,10 @@ function promptAgain(question) {
       }
   }
 
+
 function checkIfRandom(random) {
-	if (isRainbowColor(random)){ //typing random never gets here? why??.. fixed
-	    showHexColor(random);
+	if (roygbiv[random]){ //typing random never gets here? why??.. fixed
+	    showColor(random);
 	    } else if (random === "random") {
 	        let hexcode = "#";
 	        const hexChars = "0123456789ABCDEF"
@@ -73,40 +85,40 @@ function checkIfRandom(random) {
 	    }
 }
 
-function isRainbowColor(inputColor) {
+// function isRainbowColor(inputColor) {
     
-    switch (inputColor) {
-        case "red":
-        case "orange":
-        case "yellow":
-        case "green": 
-        case "blue": 
-        case "indigo":
-        case "violet": 
-            return true;
-            // showHexColor(inputColor)
-            // break;
+//     switch (inputColor) {
+//         case "red":
+//         case "orange":
+//         case "yellow":
+//         case "green": 
+//         case "blue": 
+//         case "indigo":
+//         case "violet": 
+//             return true;
+//             // showHexColor(inputColor)
+//             // break;
 
-        default:
-            return false; //why womt this work?? fixed
-        }
-    }
+//         default:
+//             return false; //why womt this work?? fixed
+//         }
+//     }
 
-function showHexColor(hexColor) {
-      // TODO: return hexcode instead of color
-    // maybe turn roygbiv into an array with key:value pair then iterate over and return the value if the input matches one of the keys
-    // for (const hex(key) of roygbiv) {
-        // get key and store as variable
-    //     if (hex(key) === color) { can I use == here to just compare if they sorta match? Then store the hex as color and alert color
-            // return the value and store as color, then alert with correct hex and bkgrd
-    //     }
-    // }
-    for (let color of roygbiv) {
-        if (color.name === hexColor) {
-            showColor(color.value);
-        } 
-    }
-}
+// function showHexColor(hexColor) {
+//       // TODO: return hexcode instead of color
+//     // maybe turn roygbiv into an array with key:value pair then iterate over and return the value if the input matches one of the keys
+//     // for (const hex(key) of roygbiv) {
+//         // get key and store as variable
+//     //     if (hex(key) === color) { can I use == here to just compare if they sorta match? Then store the hex as color and alert color
+//             // return the value and store as color, then alert with correct hex and bkgrd
+//     //     }
+//     // }
+//     for (let color of roygbiv) {
+//         if (color.name === hexColor) {
+//             showColor(color.value);
+//         } 
+//     }
+// }
 
 function notInBow(otherColor) {
         if (otherColor !== undefined) {
@@ -118,6 +130,11 @@ function notInBow(otherColor) {
 }
 
 function showColor(color) {
-    alert(color);
-    document.body.style.background = color;
+    if (roygbiv[color]) {
+        alert(roygbiv[color]);
+        document.body.style.background = roygbiv[color];
+    } else {
+        alert(color);
+        document.body.style.background = color;
+    }
 }
